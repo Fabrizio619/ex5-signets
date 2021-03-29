@@ -24,7 +24,8 @@ export async function lireTout(uid) {
   const dossiers = [];
   /************************************************************** Exercice #5 : question A **************************/
   // Modifier très légèrement la ligne suivante
-  const reponse = await firestore.collection(utilRef).doc(uid).collection(dossRef).get();
+  const reponse = await firestore.collection('utilisateurs-ex5').doc(uid).collection(dossRef).orderBy("datemodif", "desc").get();
+  // collection.orderBy("datemodif");
   reponse.forEach(
     doc => {
       dossiers.push({id: doc.id, ...doc.data()})
@@ -42,7 +43,12 @@ export async function lireTout(uid) {
 export async function supprimer(uid, idd) {
   /************************************************************** Exercice #5 : question B **************************/
   // Une seule ligne de code suffit
+     // [START delete_document]
+     return await firestore.collection(utilRef).doc(uid).collection(dossRef).doc(idd).delete();
+
+  // [END delete_document]
   // return await [votre instruction pour supprimer le dossier de l'utilisateur connecté dans Firestore ici];
+
 }
 
 /**
